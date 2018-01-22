@@ -34,7 +34,6 @@
 
 - (void)setup
 {
-  _tagsView.tagColorTheme = TagColorThemeStrawberry;
   [self handleTagBlocks];
   [_inputTextField becomeFirstResponder];
 }
@@ -46,14 +45,15 @@
   __weak typeof(self) weakSelf = self;
   [_tagsView setTapBlock:^(NSString *tagText, NSInteger idx)
    {
-     NSString *message = [NSString stringWithFormat:@"You tapped: %@", tagText];
-     [weakSelf showAlertMessage:message];
+//     NSString *message = [NSString stringWithFormat:@"You tapped: %@", tagText];
+//     [weakSelf showAlertMessage:message];
+    [weakSelf.tagsView deleteTagAtIndex:idx];
    }];
   
   [_tagsView setDeleteBlock:^(NSString *tagText, NSInteger idx)
    {
-     NSString *message = [NSString stringWithFormat:@"You deleted: %@", tagText];
-     [weakSelf showAlertMessage:message];
+//     NSString *message = [NSString stringWithFormat:@"You deleted: %@", tagText];
+//     [weakSelf showAlertMessage:message];
      [weakSelf.tagsView deleteTagAtIndex:idx];
    }];
 }
@@ -72,7 +72,8 @@
 
 - (IBAction)addTapped:(id)sender
 {
-  [_tagsView addTag:_inputTextField.text];
+    NSString *tag = [NSString stringWithFormat:@"#%@",_inputTextField.text];
+  [_tagsView addTag:tag];
   _inputTextField.text = nil;
 }
 
